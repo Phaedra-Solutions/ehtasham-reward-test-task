@@ -76,7 +76,7 @@ function App() {
 
   const fetchTransactions = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/retailer/rewards");
+      const { data } = await axios.get("http://localhost:5000/api/rewards");
       const transactions = data.data;
 
       transactions.allCustomersList = transactions.transactionsList.filter((trans, index) => {

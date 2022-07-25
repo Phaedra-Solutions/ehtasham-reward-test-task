@@ -3,6 +3,6 @@ const router = express.Router();
 
 const rewardRoutes = require("./reward.routes");
 
-router.use("/retailer", rewardRoutes);
+router.use("/", rewardRoutes);
 
 module.exports = router;
