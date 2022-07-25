@@ -15,7 +15,7 @@ Backend
 * Clone the repo and run command `cd backend` on terminal.
 * Run `npm install` for the installation of dependencies.
 * Start ther server by runing script `npm run dev`.
-* End Point for rewards point `http://localhost:5000/api/retailer/rewards`.
+* End Point for rewards point `http://localhost:5000/api/rewards`.
 * Run test case
     ```console
     npm run test
