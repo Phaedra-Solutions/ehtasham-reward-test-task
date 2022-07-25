@@ -1,48 +1,51 @@
-# Retailer Rewards Program System
 
-For every dollar spent over $50 on the transaction, the customer receives one point.
-In addition, for every dollar spent over $100, the customer receives another point.
-Ex: for a $120 purchase, the customer receives
-(120 - 50) x 1 + (120 - 100) x 1 = 90 points
+[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
 
-Given a record of every transaction during a three-month period, calculate the reward points
-earned for each customer per month and total. 
-* Make up a data set to best demonstrate your solution
-* Check solution into GitHub
+  Fast, unopinionated, minimalist web framework for [node](http://nodejs.org).
 
-## How to setup the code on local machine
+## [React](https://reactjs.org/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![CircleCI Status](https://circleci.com/gh/facebook/react.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/facebook/react) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
-     Backend 
+React is a JavaScript library for building user interfaces.
 
-* Clone the repo into your local machine and run command `cd backend` on terminal.
-* Hit the `npm install` command in the backend repo and after the installation of the packages run the script `npm run dev`.
-* Now your backend server start listening on the port 5000 e.g `http://localhost:5000`
-* Now client can get the the last 3 month rewards points with each customer per month and total by calling the API `http://localhost:5000/api/retailer/rewards`.
+
+# How To Setup The Code
+
+Backend 
+
+* Clone the repo and run command `cd backend` on terminal.
+* Run `npm install` for the installation of dependencies.
+* Start ther server by runing script `npm run dev`.
+* End Point for rewards point `http://localhost:5000/api/retailer/rewards`.
+* Run test case
+    ```console
+    npm run test
+    ```
 
 ##
 
-     Frontend 
+Frontend 
 
-* Run the command from the root of repo `cd frontend` and run `npm install` to install the project dependencies.
-* Now run the script `npm start` to intailze the react frontend that demonstrate the data set in the table formats of customers list, transactions list, monthly total by customer and 3 month summary.
-* Frontend hit the API `http://localhost:5000/api/retailer/rewards` to get the rewards points data for demonstrate
+* Run the command from the root `cd frontend` and
+* Install the dependencies by `npm install` to the frontend.
+* Start the server by running `npm start`.
+* Open the following link to see the data set and result ` http://localhost:3000`
 
 
-## Data Set and Results
+# Dataset Screenshots
 
-- Customers List
+Customers List
 
-    ![Customers List](/assets/Screenshot%202022-07-25%20at%204.45.46%20PM.png)
+![Customers List](/assets/Screenshot%202022-07-25%20at%204.45.46%20PM.png)
 
-- Transactions List
+Transactions List
 
-    ![Customers List](/assets/Screenshot%202022-07-25%20at%204.50.47%20PM.png)
+![Customers List](/assets/Screenshot%202022-07-25%20at%204.50.47%20PM.png)
 
-- Monthly total per
+Monthly total per
 customer
 
    ![Customers List](/assets/Screenshot%202022-07-25%20at%204.53.34%20PM.png)
 
-- Three Month Total
+Three Month Total
 
-    ![Customers List](/assets/Screenshot%202022-07-25%20at%204.54.36%20PM.png)
+![Customers List](/assets/Screenshot%202022-07-25%20at%204.54.36%20PM.png)
