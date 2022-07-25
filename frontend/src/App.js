@@ -79,9 +79,9 @@ function App() {
       const { data } = await axios.get("http://localhost:5000/api/retailer/rewards");
       const transactions = data.data;
 
-      transactions.allCustomersList = transactions.allTransactionsWithPoints.filter((trans, index) => {
+      transactions.allCustomersList = transactions.transactionsList.filter((trans, index) => {
         if (
-          transactions.allTransactionsWithPoints.findIndex((el) => el.customerId === trans.customerId) ===
+          transactions.transactionsList.findIndex((el) => el.customerId === trans.customerId) ===
           index
         ) {
           return { customerId: trans.customerId, customerName: trans.customerName };
@@ -109,7 +109,7 @@ function App() {
             <div className="row">
               <div className="col-12">
                 <ReactTable
-                  data={transactionData.allTransactionsWithPoints}
+                  data={transactionData.transactionsList}
                   columns={allTransactionCols}
                   defaultPageSize={10}
                 />
@@ -125,7 +125,7 @@ function App() {
             <div className="row">
               <div className="col-12">
                 <ReactTable
-                  data={transactionData.totalCustomerPointsPerMonth}
+                  data={transactionData.totalPointsOfCustomerPerMonth}
                   defaultPageSize={10}
                   columns={perMonthRewardscolumns}
                   SubComponent={(row) => {
