@@ -5,7 +5,7 @@
  * @param{number} monthNumber
  * @returns
  */
-const getlTransactionsOfCustomerWithSpecificMonth = (transactions, customerId, monthNumber) => {
+const getTransactionsOfCustomer = (transactions, customerId, monthNumber) => {
   try {
     let transactionsListOfMonth = transactions.filter((transaction) => {
       return customerId === transaction.customerId && monthNumber === transaction.monthNumber;
@@ -47,7 +47,7 @@ const getLastThreeMonthsTransactions = (transactions) => {
 };
 
 module.exports = {
-  getlTransactionsOfCustomerWithSpecificMonth,
+  getTransactionsOfCustomer,
   getPoints,
   getLastThreeMonthsTransactions,
 };

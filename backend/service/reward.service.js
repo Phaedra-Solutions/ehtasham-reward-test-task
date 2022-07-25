@@ -11,6 +11,9 @@ const { rewardHelper } = require("../helper");
  */
 const calculateRewardsPoints = (customerTransactions) => {
   try {
+    let customerPointsPerMonth = {};
+    let pointsPerCustomer = {};
+
     // Calculate points per transaction
     const monthNames = [
       "January",
@@ -27,22 +30,17 @@ const calculateRewardsPoints = (customerTransactions) => {
       "December",
     ];
 
-    const last3MonthsTransactions = rewardHelper.getLastThreeMonthsTransactions(customerTransactions);
-
-    // Get the points of each customer transaction
-    const allTransactionsWithPoints = last3MonthsTransactions.map((transaction) => ({
-      ...transaction,
-      points: rewardHelper.getPoints(transaction.transactionAmount),
-      monthNumber: new Date(transaction.transactionDate).getMonth(),
-      year: new Date(transaction.transactionDate).getFullYear(),
-    }));
-
-    let customerPointsPerMonth = {};
-    let pointsPerCustomer = {};
+    const transactionsList = rewardHelper.getLastThreeMonthsTransactions(customerTransactions);
 
     // Main Logic
-    allTransactionsWithPoints.forEach((transaction) => {
-      let { customerId, customerName, points, monthNumber, year } = transaction;
+    transactionsList.forEach((transaction) => {
+      // Get the points and month number of transaction
+      transaction.points = rewardHelper.getPoints(transaction.transactionAmount);
+      transaction.monthNumber = new Date(transaction.transactionDate).getMonth();
+
+      // Destructure to get the required data from transaction
+      let { customerId, customerName, points, monthNumber, transactionDate } = transaction;
+      const year = new Date(transactionDate).getMonth();
 
       customerPointsPerMonth[customerId] = !customerPointsPerMonth[customerId]
         ? []
@@ -52,11 +50,12 @@ const calculateRewardsPoints = (customerTransactions) => {
       pointsPerCustomer[customerName] = !pointsPerCustomer[customerName]
         ? 0
         : pointsPerCustomer[customerName];
+
       pointsPerCustomer[customerName] += points;
 
+      // if customerId key exist in the customerPointsPerMonth then add the customer records
+      // in the array month wise
       if (customerPointsPerMonth[customerId][monthNumber]) {
-        // if customerId key exist in the customerPointsPerMonth then add the customer records
-        // in the array month wise
         customerPointsPerMonth[customerId][monthNumber].points += points;
         customerPointsPerMonth[customerId][monthNumber].totalTransactions++;
       } else {
@@ -67,6 +66,7 @@ const calculateRewardsPoints = (customerTransactions) => {
           monthNumber,
           monthName: monthNames[monthNumber] + ", " + year,
           totalTransactions: 1,
+          transactions: rewardHelper.getTransactionsOfCustomer(transactionsList, customerId, monthNumber),
         };
       }
     });
@@ -74,9 +74,9 @@ const calculateRewardsPoints = (customerTransactions) => {
     // Get the record of customers with total points per month from the customerPointsPerMonth
     // where customerPointsPerMonth is the object with key value pair where key is the customer id
     // and value will be the array of customer records according to month
-    let totalCustomerPointsPerMonth = [];
+    let totalPointsOfCustomerPerMonth = [];
     for (let custKey in customerPointsPerMonth) {
-      customerPointsPerMonth[custKey].forEach((data) => totalCustomerPointsPerMonth.push(data));
+      customerPointsPerMonth[custKey].forEach((data) => totalPointsOfCustomerPerMonth.push(data));
     }
 
     // Get the total last 3 month points records of customers from the pointsPerCustomer
@@ -87,23 +87,12 @@ const calculateRewardsPoints = (customerTransactions) => {
       totalPointsPerCustomer.push({ customerName, points });
     }
 
-    // Get the transactions of a customer against each month
-    for (let ctran of totalCustomerPointsPerMonth) {
-      ctran.transactions = rewardHelper.getlTransactionsOfCustomerWithSpecificMonth(
-        allTransactionsWithPoints,
-        ctran.customerId,
-        ctran.monthNumber
-      );
-      delete ctran.monthNumber;
-    }
-
     return {
       totalPointsPerCustomer,
-      totalCustomerPointsPerMonth,
-      allTransactionsWithPoints,
+      totalPointsOfCustomerPerMonth,
+      transactionsList,
     };
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
