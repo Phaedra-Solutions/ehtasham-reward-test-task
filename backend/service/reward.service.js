@@ -40,7 +40,6 @@ const calculateRewardsPoints = (customerTransactions) => {
 
       // Destructure to get the required data from transaction
       let { customerId, customerName, points, monthNumber, transactionDate } = transaction;
-      const year = new Date(transactionDate).getMonth();
 
       customerPointsPerMonth[customerId] = !customerPointsPerMonth[customerId]
         ? []
@@ -64,7 +63,7 @@ const calculateRewardsPoints = (customerTransactions) => {
           customerName,
           points,
           monthNumber,
-          monthName: monthNames[monthNumber] + ", " + year,
+          monthName: monthNames[monthNumber],
           totalTransactions: 1,
           transactions: rewardHelper.getTransactionsOfCustomer(transactionsList, customerId, monthNumber),
         };
